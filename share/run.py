@@ -1,5 +1,8 @@
+
 #!/usr/bin/env python
 
+import sys
+import os.path
 import Sniper
 import argparse 
 import SNiPERToPlainTree
@@ -7,14 +10,16 @@ import Geometry
 
 def get_parser():
     parser = argparse.ArgumentParser(description="SNiPERToPlainTree module")
-    # parser.add_argument("--input", nargs="+", default=["sample_elecsim.root", "sample_calib.root"], help= "input list of file separated by space. Example sample_elecsim.root sample_calib.root")
-    parser.add_argument("--input", default=None, help= "input list of file separated by space. Example sample_elecsim.root sample_calib.root")
+    parser.add_argument("--input", nargs="+", default=["sample_elecsim.root", "sample_calib.root"], help= "input list of file separated by space. Example sample_elecsim.root sample_calib.root")
     parser.add_argument("--input-list", default=None, help= "input file name")
     parser.add_argument("--input-correlations", nargs="+", help="Name of the correlation files")
     parser.add_argument("--input-correlations-list", default=None, help="Name of the correlation files")
     parser.add_argument("--output", default="sample_plain.root", help="output file name suffix")
     parser.add_argument("--loglevel", default="Info", choices=["Test", "Debug", "Info", "Warn", "Error", "Fatal"], help="Set Log level")
     parser.add_argument("--time-window", default="0.01", type = float, help="Time window of events")
+    parser.add_argument("--IBD", dest="enableIBDSelection", action="store_true")
+    parser.add_argument("--Calib", dest="saveCalib", action="store_true")
+    parser.add_argument("--BiPo", dest="saveBiPo", action="store_true")
 
     return parser
 
@@ -44,40 +49,39 @@ if __name__ == "__main__":
 
     pmtparamsvc = task.createSvc("PMTParamSvc")
 
-    alg = task.createAlg("IBDSelectionAlg")
+
+    alg = task.createAlg("SNiPERToPlainTree/alg_example")
+    alg.property("enableIBDSelection").set(args.enableIBDSelection)
+    alg.property("saveCalib").set(args.saveCalib)
+    alg.property("saveBiPo").set(args.saveBiPo)
     
     import RootIOSvc
     import RootIOTools
     inputs = []
-    inputs_correlations = []
+    input_corr = []
     inputsvc = task.createSvc("RootInputSvc/InputSvc")
-
     if(args.input_list):
-        print("Reading input list")
-        import sys
-        import os.path
-        if not os.path.exists(args.input_list):
-            sys.exit(-1)
+        # if not os.path.exists(args.input_list):
+        #     sys.exit(-1)
         with open (args.input_list) as f:
             for line in f:
-                print("Reading line ", line.strip())
-                inputs.append(line.strip())
+                newline = line.strip()
+                inputs.append(newline)
     else:
-        inputs.append(args.input)
-        print(inputs)
-        # inputsvc.property("InputFile").set(args.input)
+        inputs.append(args.input[0])
+    print(inputs)
     inputsvc.property("InputFile").set(inputs)
     
     if (args.input_correlations_list):
         with open (args.input_correlations_list) as f:
             for line in f: 
-                inputs_correlations.append(line.strip())
+                newline = line.strip()
+                input_corr.append(newline)
     else:
-        if args.input_correlations:
-            inputsvc.property("InputCorrelationFile").set(args.input_correlations)
-    if len(inputs_correlations):
-        inputsvc.property("InputCorrelationFile").set(inputs_correlations)
+        input_corr.append(args.input_correlations[0])
 
+    inputsvc.property("InputCorrelationFile").set(input_corr)
+    
 
     import RootWriter
     rootwriter = task.createSvc("RootWriter")
