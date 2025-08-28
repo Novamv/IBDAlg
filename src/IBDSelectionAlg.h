@@ -23,7 +23,7 @@
 #include "SpmtElecConfigSvc/SpmtElecConfigSvc.h"
 
 
-class IBDSelectionAlg : public AlgBase
+class SNiPERToPlainTree : public AlgBase
 {
 	private :
 		
@@ -46,7 +46,7 @@ class IBDSelectionAlg : public AlgBase
 
     public :
 
-        IBDSelectionAlg(const std::string& name);
+        SNiPERToPlainTree(const std::string& name);
 
         bool initialize();
         bool execute();

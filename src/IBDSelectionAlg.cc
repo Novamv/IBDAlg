@@ -1,4 +1,4 @@
-#include "IBDSelectionAlg.h"
+#include "SNiPERToPlainTree.h"
 #include "TOF.h"
 
 #include "EvtNavigator/NavBuffer.h"
@@ -37,9 +37,13 @@
 #include "SpmtElecConfigSvc/SpmtElecConfigSvc.h"
 #include "Geometry/IPMTParamSvc.h"
 
-DECLARE_ALGORITHM(IBDSelectionAlg);
+DECLARE_ALGORITHM(SNiPERToPlainTree);
 
+<<<<<<< HEAD
 IBDSelectionAlg::IBDSelectionAlg(const std::string& name)
+=======
+SNiPERToPlainTree::SNiPERToPlainTree(const std::string& name)
+>>>>>>> parent of 2c56e88 (Switched SNiPERToPlainTree to IBDSelectionAlg)
 : AlgBase(name),
 	m_iEvt(-1),
 	m_buf(0),
@@ -55,7 +59,7 @@ IBDSelectionAlg::IBDSelectionAlg(const std::string& name)
 	foundDelay = false;
 }
 
-bool IBDSelectionAlg::initialize()
+bool SNiPERToPlainTree::initialize()
 {
 	//----------------------------------------------------------------------------
 	const std::string compilation_date = __DATE__;
@@ -161,7 +165,7 @@ bool IBDSelectionAlg::initialize()
 	return true;
 }
 
-bool IBDSelectionAlg::execute()
+bool SNiPERToPlainTree::execute()
 {
 	std::cout << "Buffer size: " << m_buf->size() <<std::endl;
 
@@ -704,7 +708,7 @@ bool IBDSelectionAlg::execute()
 
 }
 
-bool IBDSelectionAlg::Book_tree()
+bool SNiPERToPlainTree::Book_tree()
 {
 
 	SniperPtr<RootWriter> svc(*getRoot(),"RootWriter");
@@ -825,7 +829,7 @@ bool IBDSelectionAlg::Book_tree()
 }
 
 
-bool IBDSelectionAlg::finalize()
+bool SNiPERToPlainTree::finalize()
 {
 	LogDebug << "finalizing" << std::endl;
 	return true;
@@ -841,7 +845,7 @@ bool IBDSelectionAlg::finalize()
 // --------------------------------------------------------------------------
 
 
-bool IBDSelectionAlg::findCorrelation(JM::NavBuffer::Iterator navit, std::vector<JM::OecEvt*>& pEvt){
+bool SNiPERToPlainTree::findCorrelation(JM::NavBuffer::Iterator navit, std::vector<JM::OecEvt*>& pEvt){
 
 	std::cout << "Running IBD selection " << std::endl;
 	foundDelay = false;
@@ -907,7 +911,7 @@ bool IBDSelectionAlg::findCorrelation(JM::NavBuffer::Iterator navit, std::vector
 }
 
 
-bool IBDSelectionAlg::isMuonVetoed(JM::NavBuffer::Iterator navit){
+bool SNiPERToPlainTree::isMuonVetoed(JM::NavBuffer::Iterator navit){
 
 	JM::OecHeader* tHeaderOEC = JM::getHeaderObject<JM::OecHeader>(navit->get());
 	JM::OecEvt* tEventOEC = dynamic_cast<JM::OecEvt*>(tHeaderOEC->event("JM::OecEvt"));
@@ -944,7 +948,7 @@ bool IBDSelectionAlg::isMuonVetoed(JM::NavBuffer::Iterator navit){
 
 }
 
-bool IBDSelectionAlg::isIsolated(JM::NavBuffer::Iterator navit){
+bool SNiPERToPlainTree::isIsolated(JM::NavBuffer::Iterator navit){
 
 	
 	JM::OecHeader* tHeaderOEC = JM::getHeaderObject<JM::OecHeader>(navit->get());
@@ -1027,7 +1031,7 @@ bool IBDSelectionAlg::isIsolated(JM::NavBuffer::Iterator navit){
 	return !(isMultiplicity);
 }
 
-bool IBDSelectionAlg::FillPromptDelay(JM::NavBuffer::Iterator pIt, JM::NavBuffer::Iterator dIt){
+bool SNiPERToPlainTree::FillPromptDelay(JM::NavBuffer::Iterator pIt, JM::NavBuffer::Iterator dIt){
 
 	// ========================= Fill Prompt =========================
 
@@ -1095,7 +1099,7 @@ bool IBDSelectionAlg::FillPromptDelay(JM::NavBuffer::Iterator pIt, JM::NavBuffer
 // TOF Calculation
 // --------------------------------------------------------------------------
 
-double IBDSelectionAlg::ComputeLTOF(double pmtid, double evtx, double evty, double evtz){
+double SNiPERToPlainTree::ComputeLTOF(double pmtid, double evtx, double evty, double evtz){
 	double pmt_pos_x = ALL_LPMT_pos.at(pmtid).X();
 	double pmt_pos_y = ALL_LPMT_pos.at(pmtid).Y();
 	double pmt_pos_z = ALL_LPMT_pos.at(pmtid).Z();
@@ -1112,7 +1116,7 @@ double IBDSelectionAlg::ComputeLTOF(double pmtid, double evtx, double evty, doub
 	return RfrIndxLS*(Dist-LengthWater)*1e6/c + RfrIndxWR*LengthWater*1e6/c;
 }
 
-double IBDSelectionAlg::ComputeSTOF(double pmtid, double evtx, double evty, double evtz){
+double SNiPERToPlainTree::ComputeSTOF(double pmtid, double evtx, double evty, double evtz){
 	pmtid = pmtid - 20000;
 	double pmt_pos_x = ALL_SPMT_pos.at(pmtid).X();
 	double pmt_pos_y = ALL_SPMT_pos.at(pmtid).Y();
