@@ -1,4 +1,4 @@
-PKG(SNiPERToPlainTree
+PKG(IBDSelection
     DEPENDS
     SimEvent
 	ElecEvent

@@ -1,7 +1,7 @@
 import Sniper
 Sniper.loadDll("libSpmtElecConfigSvc.so")
 Sniper.loadDll("libBufferMemMgr.so")
-Sniper.loadDll("libSNiPERToPlainTree.so")
+Sniper.loadDll("libIBDSelection.so")
 #Sniper.loadDll("libCorAnalysis.so")
 Sniper.loadDll("libSimEvent.so")
 Sniper.loadDll("libElecEvent.so")

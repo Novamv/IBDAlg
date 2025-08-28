@@ -1,5 +1,5 @@
-#ifndef SNIPERTOPLAINTREE
-#define SNIPERTOPLAINTREE
+#ifndef IBDSELECTIONALG
+#define IBDSELECTIONALG
 
 #include "SniperKernel/AlgBase.h"
 #include <vector>

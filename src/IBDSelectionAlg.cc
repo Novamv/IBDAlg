@@ -39,7 +39,7 @@
 
 DECLARE_ALGORITHM(IBDSelectionAlg);
 
-SNiPERToPlainTree::IBDSelectionAlg(const std::string& name)
+IBDSelectionAlg::IBDSelectionAlg(const std::string& name)
 : AlgBase(name),
 	m_iEvt(-1),
 	m_buf(0),

@@ -5,7 +5,7 @@ import sys
 import os.path
 import Sniper
 import argparse 
-import SNiPERToPlainTree
+import IBDSelection
 import Geometry
 
 def get_parser():
