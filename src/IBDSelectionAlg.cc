@@ -1,4 +1,4 @@
-#include "IBDSelection.h"
+#include "IBDSelectionAlg.h"
 #include "TOF.h"
 
 #include "EvtNavigator/NavBuffer.h"

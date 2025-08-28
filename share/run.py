@@ -50,7 +50,7 @@ if __name__ == "__main__":
     pmtparamsvc = task.createSvc("PMTParamSvc")
 
 
-    alg = task.createAlg("IBDSelectionAlg")
+    alg = task.createAlg("SNiPERToPlainTree/alg_example")
     alg.property("enableIBDSelection").set(args.enableIBDSelection)
     alg.property("saveCalib").set(args.saveCalib)
     alg.property("saveBiPo").set(args.saveBiPo)
